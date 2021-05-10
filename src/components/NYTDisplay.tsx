@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import React from 'react';
+import React, {MouseEvent} from 'react';
 import NYTResults from './NYTResults';
 
 type Features = {
@@ -31,8 +31,8 @@ class NYTApp extends React.Component<{}, Features> {
         let key = `vDI3v9LNvpHBVwbvTgMn2CiKuFzNGWKs`
         let url = `${baseURL}?api-key=${key}&page=${this.state.pageNumber}&q=${this.state.search}`
 
-        if (this.state.startDate != '') url += `&begin_date${this.state.startDate}`;
-        if (this.state.endDate != '') url += `&begin_date${this.state.endDate}`;
+        if (this.state.startDate !== '') url += `&begin_date${this.state.startDate}`;
+        if (this.state.endDate !== '') url += `&begin_date${this.state.endDate}`;
 
         fetch(url)
         .then(res => res.json())
@@ -49,7 +49,7 @@ class NYTApp extends React.Component<{}, Features> {
         event.preventDefault();
     }
 
-    changePageNumber(event: any, direction: string){
+    changePageNumber(event: MouseEvent, direction: string){
         event.preventDefault()
         if(direction === 'down'){
             if(this.state.pageNumber > 0){
@@ -85,7 +85,13 @@ class NYTApp extends React.Component<{}, Features> {
                     <button className="submit">Submit Search</button>
                 </form>
                 {<NYTResults results={this.state.results} pages={this.changePageNumber}/>}
+            
+            <div>
+                <button onClick={(e) => this.changePageNumber(e, 'down')}>Previous 10</button>
+                <button onClick={(e) => this.changePageNumber(e, 'up')}>Next 10</button>
             </div>
+            </div>
+            
         )
     }
 
