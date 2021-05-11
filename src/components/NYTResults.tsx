@@ -25,6 +25,7 @@ const NYTResults = (props: MyProps) => {
                 return (
                     <div>
                         <a href={article.web_url}><h3 >{article.headline.main}</h3></a>
+                        {article.multimedia.length > 1 ? <img alt='article' src={`http://www.nytimes.com/${article.multimedia[1].url}`}/> : ''}
                         {/* <img src={`http://www.nytimes.com/${article.multimedia[0].url}`}></img> */}
                         <p>{article.snippet}</p>
                     
